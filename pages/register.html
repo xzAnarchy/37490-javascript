@@ -7,7 +7,7 @@
     <title>E-comerce</title>
 
     <!-- Link Css -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
 
     <!-- Link Font -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -23,16 +23,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
  
     <!-- Favicon -->
-    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
 </head>
 <body>
     <nav class="navbar-main">
         <div class="navbar-logo">
-            <img src="./assets/favicon.png" alt="logo">
+            <img src="../assets/favicon.png" alt="logo">
         </div>
         <div>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="../index.html">Home</a></li>
                 <li><a href="about.html">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -40,7 +40,7 @@
         <div id="login-register">
             <ul>
                 <li><a href="#">Login</a></li>
-                <li><a href="pages/register.html">Register</a></li>
+                <li><a href="#">Register</a></li>
             </ul>
         </div>
     </nav>
@@ -50,39 +50,22 @@
     </header>
 
     <main class="main-main">
-        <div>
-            <!--  modelo de carrito  -->
-            <div class="cart-modal-overlay">
-                <div class="cart-modal">
-                <i id="close-btn" class="fas fa-times"></i>
-                    <h1 class="cart-is-empty">El carrito esta vacio</h1>
-                
-                    <div class="product-rows">
-                    </div>
-                    <div class="total">
-                    <h1 class="cart-total">TOTAL</h1>
-                        <span class="total-price">$0</span>
-                        <button class="purchase-btn">COMPRAR</button>
-                    </div>
-                </div>
-                </div>
-            <!--   end of cart modal -->
-            <a class="cart-btn">
-                <i id="cart" class="fas fa-shopping-cart"></i>
-                <span class ="cart-quantity">0</span>
-            </a>
-        </div>
+        <form action="#" id="formulario">
+            <p>
+              Usuario: <input type="text" name="usuario" id="usuario">
+            </p>
+            <p>
+              Clave: <input type="text" name="clave" id="clave">
+            </p>
+            <input type="submit" value="Entrar" id="boton-register">
+        </form>
 
-        <!-- Productos -->
-        <div class="items-container d-flex justify-content-around" id="lista-productos">
-            
-        </div> 
     </main>
 
     <footer></footer>
 
-    <!-- Link a Js principal -->
-    <script src="js/main.js"></script>
+    <!-- Link a Js -->
+    <script src="../js/register.js"></script>
     
     <!-- Link a Js de Boostrap -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
