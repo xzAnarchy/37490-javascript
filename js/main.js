@@ -1,108 +1,48 @@
-/*
-function saludo(nombre, apellido) {
-
-    alert(`Hola ${nombre}${apellido}.  Bienvenido a LoremShop!`);
-
-}
-
-const nombre = prompt("Ingrese su nombre: ");
-
-const apellido = prompt("Ingrese su apellido: ");
-
-saludo(nombre, apellido);
 
 class Producto {
-
     constructor(nombre, precio) {
-
         this.nombre = nombre;
-
         this.precio = precio;
-
     }
-
 }
 
 let listaProductos = [
 
-    {nombre: 'Producto beta 1', precio: 10},
+    {nombre: 'Producto 1', precio: 1395},
 
-    {nombre: 'Producto beta 2', precio: 20},
+    {nombre: 'Producto 2', precio: 1395},
 
-    {nombre: 'Producto beta 3', precio: 30},
+    {nombre: 'Producto 3', precio: 1395},
 
-    {nombre: 'Producto beta 4', precio: 40},
+    {nombre: 'Producto 4', precio: 1395},
 
-    {nombre: 'mouse', precio: 50},
+    {nombre: 'mouse', precio: 1395},
 
 ];
 
-const agregarProducto = () => {
-
-    confirmar = confirm("¿Desea agregar un nuevo producto?");
-
-    if (confirmar) {
-
-        let nombre = prompt("Ingrese el nombre del producto: ");
-
-        let precio = parseFloat(prompt("Ingrese el precio del producto: "));
-
-        listaProductos.push(new Producto(nombre,precio));
-
-        alert("Producto agregado exitosamente!");
-
-    }
-
-}
-
-agregarProducto();
-
-let confirmarEliminar = confirm("¿Desea eliminar un producto?");
-
-if (confirmarEliminar) {
-
-    let nombre = prompt("Ingrese el nombre del producto: ");
-
-    //Verifico si existe (recibo un booleano)
-
-    let existe = listaProductos.some(elemento => elemento.nombre === nombre)
-
-    //Guardo en un nuevo array, los nombres de los productos
-
-    const buscarIndice = listaProductos.map(elemento => elemento.nombre)
-
-    //Busco por el índice, del array buscarIndice
-
-    let indice = buscarIndice.indexOf(nombre)
-
-    if(existe){
-
-        listaProductos.splice(indice,1)
-
-        alert("Producto eliminado exitosamente!");
-
-    }else{
-
-        alert("Producto no encontrado")
-
-    }
-
-}
-
-let verProductos = confirm("¿Desea ver los productos disponibles?");
-
-if (verProductos) {
-
+//Mostrar productos
+function mostrarProductos() {
+    let lista = document.getElementById('lista-productos');
+    let productos = listaProductos;
     for (let i = 0; i < listaProductos.length; i++) {
-
-        alert(`${listaProductos[i].nombre} - ${listaProductos[i].precio}`);
-
+        let producto = productos[i];
+        let productoHTML = `
+            <div class="product-row card-main card-${i}" id="${i}">
+                <img class="product-image" src="assets/producto${i+1}.jpg" />
+                <h3>${producto.nombre}</h3>
+                <p>Lorem ipsum dolor sit amet consectetur.</p>
+                <button class="add-to-cart">Comprar</button>
+                <span class="product-price">$${producto.precio}</span>
+            </div>
+        `
+        lista.innerHTML += productoHTML;
     }
-
 }
-*/
 
-//Inicio DOM
+
+mostrarProductos();
+
+//Inicio DOM Carrito
 
 // como abrir y cerrar el carrito
 const carrito = document.querySelector("#cart");
@@ -126,7 +66,6 @@ closeBtn.addEventListener("click", ()=>{
 
 //agregar elementos al carrito
 const addToCart = document.getElementsByClassName("add-to-cart");
-console.log(addToCart)
 for(let boton of addToCart) {
     boton.addEventListener("click", compilarDatos)
 }
@@ -173,12 +112,20 @@ function cantElementosCarrito() {
 
 }
 
-//Suma precios carrito
-const sumaPrecios = document.querySelector(".total-price");
-const productRows = document.querySelectorAll(".product-row");
+//sumar los precios
 let total = 0;
+let totalPrice = document.querySelector(".total-price");
+let productRows = document.querySelectorAll(".product-row");
 for(let producto of productRows) {
     let precio = producto.querySelector(".cart-price").innerText;
-    total += parseFloat(precio);
+    total += parseInt(precio);
 }
-sumaPrecios.innerText = total;
+totalPrice.innerText = total;
+
+
+
+//Cambiar login y register
+let afterRegister = document.querySelector("#login-register");
+if (localStorage.getItem("usuario") != null) {
+    afterRegister.innerHTML = `<p class="usuario-nav">Bienvenido ${localStorage.getItem("usuario")}</p>`;
+}
