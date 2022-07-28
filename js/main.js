@@ -30,9 +30,9 @@ function mostrarProductos() {
             <div class="product-row card-main card-${i}" id="${i}">
                 <img class="product-image" src="assets/producto${i+1}.jpg" />
                 <h3>${producto.nombre}</h3>
+                <span class="product-price">$${producto.precio}</span>
                 <p>Lorem ipsum dolor sit amet consectetur.</p>
                 <button class="add-to-cart">Comprar</button>
-                <span class="product-price">$${producto.precio}</span>
             </div>
         `
         lista.innerHTML += productoHTML;
@@ -65,6 +65,7 @@ closeBtn.addEventListener("click", ()=>{
 })
 
 //agregar elementos al carrito
+const shoppingCart = [];
 const addToCart = document.getElementsByClassName("add-to-cart");
 for(let boton of addToCart) {
     boton.addEventListener("click", compilarDatos)
@@ -77,6 +78,8 @@ function compilarDatos(e){
     let precio = producto.querySelector(".product-price").innerText;
     let imagen = producto.querySelector(".product-image").src;
     agregarElemento(prodID,prodName,precio,imagen)
+    shoppingCart.push(new Producto(prodName,precio));
+    sumarPrecios();
 }
 
 function agregarElemento(prodID,prodName,precio,imagen) {
@@ -113,14 +116,13 @@ function cantElementosCarrito() {
 }
 
 //sumar los precios
-let total = 0;
-let totalPrice = document.querySelector(".total-price");
-let productRows = document.querySelectorAll(".product-row");
-for(let producto of productRows) {
-    let precio = producto.querySelector(".cart-price").innerText;
-    total += parseInt(precio);
+let total = document.querySelector(".total-price");
+function sumarPrecios() {
+    total.innerText = shoppingCart.reduce((total, producto) => {
+        return total + parseInt(producto.precio);
+    }
+    , 0);
 }
-totalPrice.innerText = total;
 
 
 
