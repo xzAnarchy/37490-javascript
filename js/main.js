@@ -1,6 +1,7 @@
 //Variables globales
 class Producto {
-    constructor(nombre, precio) {
+    constructor(prodId, nombre, precio) {
+        this.prodId = prodId;
         this.nombre = nombre;
         this.precio = parseFloat(precio);
     }
@@ -8,15 +9,15 @@ class Producto {
 
 let listaProductos = [
 
-    {nombre: 'Producto 1', precio: 1395},
+    {nombre: 'Producto 1', precio: 100},
 
-    {nombre: 'Producto 2', precio: 1395},
+    {nombre: 'Producto 2', precio: 150},
 
-    {nombre: 'Producto 3', precio: 1395},
+    {nombre: 'Producto 3', precio: 200},
 
-    {nombre: 'Producto 4', precio: 1395},
+    {nombre: 'Producto 4', precio: 250},
 
-    {nombre: 'mouse', precio: 1395},
+    {nombre: 'mouse', precio: 300},
 
 ];
 
@@ -59,6 +60,7 @@ if (localStorage.getItem("usuario") != null) {
 
 
 //========================================Funciones=========================================================== 
+
 //Muestra los productos en el Html
 function mostrarProductos() {
     let lista = document.getElementById('lista-productos');
@@ -87,7 +89,7 @@ function compilarDatos(e){
     let precio = producto.querySelector(".product-price").innerText;
     let imagen = producto.querySelector(".product-image").src;
     agregarElemento(prodID,prodName,precio,imagen)
-    shoppingCart.push(new Producto(prodName,precio));
+    shoppingCart.push(new Producto(prodID,prodName,precio));
     console.log(shoppingCart)
     sumarPrecios();
 }
@@ -110,6 +112,7 @@ function agregarElemento(prodID,prodName,precio,imagen) {
     let botonesBorrar = productRow.querySelectorAll(".remove-btn");
     for(let boton of botonesBorrar) {
         boton.addEventListener("click", borrarElemento);
+        boton.addEventListener("click", actualizarPrecio);
     }
     cantElementosCarrito();
 }
@@ -136,16 +139,9 @@ function sumarPrecios() {
 }
 
 //actualizar precio al eliminar un elemento
-function actualizarPrecio(e) {
-    let boton = e.target;
-    let producto = boton.parentElement;
-    let prodID = producto.getAttribute("id");
-    let prodName = producto.querySelector("h3").innerText;
-    let precio = producto.querySelector(".product-price").innerText;
-    let imagen = producto.querySelector(".product-image").src;
-    eliminarElemento(prodID,prodName,precio,imagen)
-    if (shoppingCart.find(producto => producto.nombre === prodName)) {
-        shoppingCart.splice(shoppingCart.indexOf(shoppingCart.find(producto => producto.nombre === prodName)), 1);
-        console.log(shoppingCart)
-    }
+function actualizarPrecio (e) {
+    btn = e.target;
+    shoppingCart.findIndex(producto => producto.prodId == btn.parentElement.parentElement.id);
+    shoppingCart.splice(shoppingCart.findIndex(producto => producto.prodId == btn.parentElement.parentElement.id), 1);
+    sumarPrecios();
 }
