@@ -8,17 +8,11 @@ class Producto {
 }
 
 let listaProductos = [
-
     {nombre: 'Producto 1', precio: 100},
-
     {nombre: 'Producto 2', precio: 150},
-
     {nombre: 'Producto 3', precio: 200},
-
     {nombre: 'Producto 4', precio: 250},
-
     {nombre: 'mouse', precio: 300},
-
 ];
 
 let totalPrecio= 0;
