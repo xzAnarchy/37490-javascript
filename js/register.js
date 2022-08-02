@@ -28,6 +28,9 @@ boton.onclick =  (e) =>{
     }
 }
 
-if (localStorage.getItem("usuario") != null) {
-    afterRegister.innerHTML = `<p class="usuario-nav">Bienvenido ${localStorage.getItem("usuario")}</p>`;
-}
+localStorage.getItem("usuario") != null ? afterRegister.innerHTML = `<p class="usuario-nav">Bienvenido ${localStorage.getItem("usuario")}</p>` : afterRegister.innerHTML = `<div id="login-register">
+<ul>
+    <li><a href="#">Login</a></li>
+    <li><a href="pages/register.html">Register</a></li>
+</ul>
+</div>`;
