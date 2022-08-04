@@ -201,7 +201,7 @@
 .cart-price {
   color: white;
   font-size: 1.5rem;
-  font-weight: bolder; }
+  font-weight: bold; }
 
 .product-quantity {
   width: 4rem;
@@ -217,7 +217,15 @@
   cursor: pointer;
   margin-left: 3rem;
   font-weight: bolder;
-  font-size: 1rem; }
+  font-size: 1rem;
+  border-radius: 10px; }
+
+.precio-carrito {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-left: 10px; }
 
 .remove-btn:active {
   transform: translateY(5px); }

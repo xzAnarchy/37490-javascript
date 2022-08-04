@@ -93,6 +93,15 @@ function compilarDatos(e){
     shoppingCart.push(new Producto(prodID,prodName,precio));
     console.log(shoppingCart)
     sumarPrecios();
+    guardarDatos(shoppingCart);
+    Swal.fire({
+        title: 'Perfecto!',
+        text: 'Tu producto se agrego al carrito',
+        icon: 'success',
+        width: 600,
+        color: '#fff',
+        background: '#222744',
+      })
 }
 
 //crear elementos en el carrito
@@ -104,7 +113,7 @@ function agregarElemento(prodID,prodName,precio,imagen) {
         <div class="product-row" id="${prodID}">
             <img class="cart-image" src="${imagen}" />
             <h2>${prodName}:</h2>
-            <p>$<span class="cart-price"> ${precio}</span></p>
+            <p class="precio-carrito">$<span class="cart-price"> ${precio}</span></p>
             <button class="remove-btn">Borrar</button>
         </div>
     `
@@ -145,4 +154,12 @@ function actualizarPrecio (e) {
     shoppingCart.findIndex(producto => producto.prodId == btn.parentElement.parentElement.id);
     shoppingCart.splice(shoppingCart.findIndex(producto => producto.prodId == btn.parentElement.parentElement.id), 1);
     sumarPrecios();
+    guardarDatos(shoppingCart);
+    console.log(shoppingCart)
+}
+
+
+//Guardar datos del carrito en localStorage
+function guardarDatos() {
+    localStorage.setItem("carrito", JSON.stringify(shoppingCart));
 }
