@@ -7,13 +7,16 @@ class Producto {
     }
 }
 
-let listaProductos = [
-    {nombre: 'Producto 1', precio: 100},
-    {nombre: 'Producto 2', precio: 150},
-    {nombre: 'Producto 3', precio: 200},
-    {nombre: 'Producto 4', precio: 250},
-    {nombre: 'mouse', precio: 300},
-];
+fetch(`./js/productos.json`)
+        .then(res => res.json())
+        .then(data = data => {
+            listaProductos = data;
+            mostrarProductos();
+}).catch(err => console.log(err));
+
+let listaProductos = [];
+
+
 
 let totalPrecio= 0;
 let total = document.querySelector(".total-price");
