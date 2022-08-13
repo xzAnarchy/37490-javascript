@@ -7,17 +7,9 @@ class Producto {
     }
 }
 
-fetch(`./js/productos.json`)
-        .then(res => res.json())
-        .then(data = data => {
-            listaProductos = data;
-            mostrarProductos();
-}).catch(err => console.log(err));
-
 let listaProductos = [];
-
-
-
+const addToCart = document.getElementsByClassName("add-to-cart");
+const purchaseBtn = document.querySelector(".purchase-btn");
 let totalPrecio= 0;
 let total = document.querySelector(".total-price");
 let afterRegister = document.querySelector("#login-register");
@@ -25,9 +17,18 @@ const carrito = document.querySelector("#cart");
 const cartModalOverlay = document.querySelector(".cart-modal-overlay"); 
 const closeBtn = document.querySelector("#close-btn");
 const shoppingCart = [];
-const addToCart = document.getElementsByClassName("add-to-cart");
 
-mostrarProductos();
+fetch(`./js/productos.json`)
+.then(res => res.json())
+.then(data => {
+            listaProductos = data;
+            mostrarProductos(listaProductos);
+            //agregar elementos al carrito
+            for(let boton of addToCart) {
+                boton.addEventListener("click", compilarDatos)
+            }
+})
+.catch(err => console.log(err));
 
 //Eventos
 
@@ -45,10 +46,16 @@ closeBtn.addEventListener("click", ()=>{
     cartModalOverlay.classList.remove("open");
 })
 
-//agregar elementos al carrito
-for(let boton of addToCart) {
-    boton.addEventListener("click", compilarDatos)
-}
+//Vaciar elementos del carrito con el boton de compra y actualiza el precio
+purchaseBtn.addEventListener("click", () =>{
+    let cartQuantity = document.querySelector(".cart-quantity");
+    cartQuantity.innerText = 0;
+    contenedorProductos = document.querySelector(".products-rows");
+    contenedorProductos.innerHTML = "";
+    shoppingCart.length = 0;
+    totalPrecio = 0;
+    total.innerHTML = 0;
+})
 
 // //Cambiar login y register
 // if (localStorage.getItem("usuario") != null) {
@@ -66,10 +73,10 @@ for(let boton of addToCart) {
 //========================================Funciones=========================================================== 
 
 //Muestra los productos en el Html
-function mostrarProductos() {
+function mostrarProductos(array) {
     let lista = document.getElementById('lista-productos');
-    let productos = listaProductos;
-    for (let i = 0; i < listaProductos.length; i++) {
+    let productos = array;
+    for (let i = 0; i < productos.length; i++) {
         let producto = productos[i];
         let productoHTML = `
             <div class="product-row card-main card-${i}" id="${i}">
@@ -87,6 +94,7 @@ function mostrarProductos() {
 //Agrega los elementos al carrito cuando se le da al boton de agregar
 function compilarDatos(e){
     let boton = e.target;
+    console.log(boton)
     let producto = boton.parentElement;
     let prodID = producto.getAttribute("id");
     let prodName = producto.querySelector("h3").innerText;
@@ -110,7 +118,7 @@ function compilarDatos(e){
 //crear elementos en el carrito
 function agregarElemento(prodID,prodName,precio,imagen) {
     let productRow = document.createElement("div");
-    let contenedorProductos = document.querySelector(".product-rows");
+    let contenedorProductos = document.querySelector(".products-rows");
 
     let elemProducto = `
         <div class="product-row" id="${prodID}">
@@ -139,7 +147,7 @@ function borrarElemento(e) {
 
 //Muestra la cantidad de elementos en el carrito
 function cantElementosCarrito() {
-    let cantidad = document.querySelectorAll(".product-rows > div");
+    let cantidad = document.querySelectorAll(".products-rows > div");
     let cartQuantity = document.querySelector(".cart-quantity");
     cartQuantity.innerText = cantidad.length;
 
